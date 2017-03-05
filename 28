@@ -23,6 +23,12 @@ censo1990$Edad <- ifelse(censo1990$ANO_CUMP >= 60 & censo1990$ANO_CUMP <= 69, "D
 
 Edad90 <- data.frame(wtd.table(censo1990$Edad))
 
+
+censo1990$TAM_LOC <- ifelse(censo1990$TAM_LOC == 1, "Rural",
+                    ifelse(censo1990$TAM_LOC >= 2 & censo1990$TAM_LOC <= , "De 70 a 79 años",
+                           ifelse(censo1990$TAM_LOC >= 80 & censo1990$TAM_LOC <= 89, "De 80 a 89 años", "NA")))
+
+
 wtd.table(censo1990$Edad, censo1990$SEXO)
 
 #################################
