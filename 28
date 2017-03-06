@@ -23,13 +23,15 @@ censo1990$Edad <- ifelse(censo1990$ANO_CUMP >= 60 & censo1990$ANO_CUMP <= 69, "D
 
 Edad90 <- data.frame(wtd.table(censo1990$Edad))
 
+censo1990$TAM_LOC <- as.numeric(as.character(censo1990$TAM_LOC))
 
-censo1990$TAM_LOC <- ifelse(censo1990$TAM_LOC == 1, "Rural",
-                    ifelse(censo1990$TAM_LOC >= 2 & censo1990$TAM_LOC <= , "De 70 a 79 años",
-                           ifelse(censo1990$TAM_LOC >= 80 & censo1990$TAM_LOC <= 89, "De 80 a 89 años", "NA")))
+censo1990$Localidad <- ifelse(censo1990$TAM_LOC == 1, "Rural",
+                    ifelse(censo1990$TAM_LOC >= 2 & censo1990$TAM_LOC <= 3, "Urbano",
+                           ifelse(censo1990$TAM_LOC >= 4 & censo1990$TAM_LOC <= 5, "Metrópolis", "NA")))
+                           
+Loc90 <- data.frame(wtd.table(censo1990$Localidad))
 
-
-wtd.table(censo1990$Edad, censo1990$SEXO)
+wtd.table(censo1990$Edad, censo1990$SEXO, censo1990$Localidad)
 
 #################################
 
@@ -48,7 +50,15 @@ censo2000$Edad <- ifelse(censo2000$ANO_CUMP >= 70 & censo2000$ANO_CUMP <= 79, "D
 
 Edad00 <- data.frame(wtd.table(censo2000$Edad))
 
-wtd.table(censo2000$Edad, censo2000$SEXO)
+censo2000$TAM_LOC <- as.numeric(as.character(censo2000$TAM_LOC))
+
+censo2000$Localidad <- ifelse(censo2000$TAM_LOC == 1, "Rural",
+                    ifelse(censo2000$TAM_LOC >= 2 & censo2000$TAM_LOC <= 4, "Urbano",
+                           ifelse(censo2000$TAM_LOC == 5, "Metrópolis", "NA")))
+                           
+Loc00 <- data.frame(wtd.table(censo2000$Localidad))
+
+wtd.table(censo2000$Edad, censo2000$SEXO, censo2000$Localidad)
 
 ##################################
 wtd.table(censo2010$SEXO)
@@ -67,6 +77,14 @@ censo2010$Edad <- ifelse(censo2010$EDAD >= 80 & censo2010$EDAD <= 89, "De 80 a 8
 
 Edad10 <- data.frame(wtd.table(censo2010$SEXO))
 
-wtd.table(censo2010$Edad, censo2010$SEXO)
+censo2010$TAM_LOC <- as.numeric(as.character(censo2010$TAM_LOC))
+
+censo2010$Localidad <- ifelse(censo2010$TAM_LOC == 1, "Rural",
+                    ifelse(censo2010$TAM_LOC >= 2 & censo2010$TAM_LOC <= 4, "Urbano",
+                           ifelse(censo2010$TAM_LOC == 5, "Metrópolis", "NA")))
+                           
+Loc10 <- data.frame(wtd.table(censo2010$Localidad))
+
+wtd.table(censo2010$Edad, censo2010$SEXO, censo2010$Localidad)
 
 #####################################
