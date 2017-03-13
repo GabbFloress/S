@@ -1,0 +1,197 @@
+require(foreign)
+require(questionr)
+require(car)
+
+############################# 1990 #########################################
+
+censo90 <- read.dbf("C://Users//FLORES//Desktop//1990.dbf")
+
+censo90$ANO_CUMP <- as.numeric(as.character(censo90$ANO_CUMP))
+censo90$TAM_LOC <- as.numeric(as.character(censo90$TAM_LOC))
+censo90$SEXO <- as.numeric(as.character(censo90$SEXO)
+                           
+censo1990 <- subset(censo90, censo90$ANO_CUMP > 59 & censo90$ANO_CUMP < 90)
+                           
+                           
+censo1990$SEXO <- as.numeric(as.character(censo1990$SEXO))
+censo1990$SEXO <- ifelse(censo1990$SEXO == 1, "Hombre", "Mujer")
+                           
+censo1990$ANO_CUMP <- as.numeric(as.character(censo1990$ANO_CUMP))
+censo1990$Edad <- ifelse(censo1990$ANO_CUMP >= 60 & censo1990$ANO_CUMP <= 69, "De 60 a 69 años",
+                  ifelse(censo1990$ANO_CUMP >= 70 & censo1990$ANO_CUMP <= 79, "De 70 a 79 años",
+                  ifelse(censo1990$ANO_CUMP >= 80 & censo1990$ANO_CUMP <= 89, "De 80 a 89 años", "NA")))
+                           
+censo1990$TAM_LOC <- as.numeric(as.character(censo1990$TAM_LOC))
+                           
+censo1990$Localidad <- ifelse(censo1990$TAM_LOC == 1, "Rural",
+                       ifelse(censo1990$TAM_LOC >= 2 & censo1990$TAM_LOC <= 3, "Urbano",
+                       ifelse(censo1990$TAM_LOC >= 4 & censo1990$TAM_LOC <= 5, "Metrópolis", "NA")))
+                           
+                           
+w <- xtabs(~censo1990$Edad + censo1990$SEXO + censo1990$Localidad )
+w
+                           
+########################################## Hombres 1990 #####################################
+censo1990H <- subset(censo90, censo90$ANO_CUMP > 59 & censo90$ANO_CUMP < 90 & censo90$SEXO == 1)
+                           
+censo1990H$ANO_CUMP <- as.numeric(as.character(censo1990H$ANO_CUMP))
+censo1990H$Edad <- ifelse(censo1990H$ANO_CUMP >= 60 & censo1990H$ANO_CUMP <= 69, "De 60 a 69 años",
+                   ifelse(censo1990H$ANO_CUMP >= 70 & censo1990H$ANO_CUMP <= 79, "De 70 a 79 años",
+                   ifelse(censo1990H$ANO_CUMP >= 80 & censo1990H$ANO_CUMP <= 89, "De 80 a 89 años", "NA")))
+                           
+censo1990H$TAM_LOC <- as.numeric(as.character(censo1990H$TAM_LOC))
+                           
+censo1990H$Localidad <- ifelse(censo1990H$TAM_LOC == 1, "Rural",
+                        ifelse(censo1990H$TAM_LOC >= 2 & censo1990H$TAM_LOC <= 3, "Urbano",
+                        ifelse(censo1990H$TAM_LOC >= 4 & censo1990H$TAM_LOC <= 5, "Metrópolis", "NA")))
+                           
+wtd.table(censo1990H$Edad, censo1990H$Localidad)
+                           
+########################################### Mujeres 1990 #####################################
+censo1990M <- subset(censo90, censo90$ANO_CUMP > 59 & censo90$ANO_CUMP < 90 & censo90$SEXO == 2)
+                           
+censo1990M$ANO_CUMP <- as.numeric(as.character(censo1990M$ANO_CUMP))
+censo1990M$Edad <- ifelse(censo1990M$ANO_CUMP >= 60 & censo1990M$ANO_CUMP <= 69, "De 60 a 69 años",
+                   ifelse(censo1990M$ANO_CUMP >= 70 & censo1990M$ANO_CUMP <= 79, "De 70 a 79 años",
+                   ifelse(censo1990M$ANO_CUMP >= 80 & censo1990M$ANO_CUMP <= 89, "De 80 a 89 años", "NA")))
+                           
+censo1990M$TAM_LOC <- as.numeric(as.character(censo1990M$TAM_LOC))
+                           
+censo1990M$Localidad <- ifelse(censo1990M$TAM_LOC == 1, "Rural",
+                        ifelse(censo1990M$TAM_LOC >= 2 & censo1990M$TAM_LOC <= 3, "Urbano",
+                        ifelse(censo1990M$TAM_LOC >= 4 & censo1990M$TAM_LOC <= 5, "Metrópolis", "NA")))
+                           
+wtd.table(censo1990M$Edad, censo1990M$Localidad)
+                           
+############################# 2000 #########################################
+                           
+censo00 <- read.dbf("C://Users//FLORES//Desktop//2000.dbf")
+                           
+censo00$ANO_CUMP <- as.numeric(as.character(censo00$ANO_CUMP))
+censo00$TAM_LOC <- as.numeric(as.character(censo00$TAM_LOC))
+censo00$SEXO <- as.numeric(as.character(censo00$SEXO)
+                                                      
+censo2000 <- subset(censo00, censo00$ANO_CUMP > 69 & censo00$ANO_CUMP < 100)
+                                                      
+censo2000$SEXO <- as.numeric(as.character(censo2000$SEXO))
+censo2000$SEXO <- ifelse(censo2000$SEXO == 1, "Hombre", "Mujer")
+                                                      
+censo2000$ANO_CUMP <- as.numeric(as.character(censo2000$ANO_CUMP))
+censo2000$Edad <- ifelse(censo2000$ANO_CUMP >= 70 & censo2000$ANO_CUMP <= 79, "De 70 a 79 años",
+                  ifelse(censo2000$ANO_CUMP >= 80 & censo2000$ANO_CUMP <= 89, "De 80 a 89 años",
+                  ifelse(censo2000$ANO_CUMP >= 90 & censo2000$ANO_CUMP <= 99, "De 90 a 99 años", "NA")))
+                                                      
+                                                      
+censo2000$TAM_LOC <- as.numeric(as.character(censo2000$TAM_LOC))
+                                                      
+censo2000$Localidad <- ifelse(censo2000$TAM_LOC == 1, "Rural",
+                       ifelse(censo2000$TAM_LOC >= 2 & censo2000$TAM_LOC <= 4, "Urbano",
+                       ifelse(censo2000$TAM_LOC == 5, "Metrópolis", "NA")))
+                                                      
+x <- xtabs(~censo2000$Edad + censo2000$SEXO + censo2000$Localidad)
+x
+                                                      
+########################################## Hombres 2000 #####################################
+                                                      
+censo2000H <- subset(censo00, censo00$ANO_CUMP > 69 & censo00$ANO_CUMP < 100 & censo00$SEXO == 1)
+                                                      
+                                                      
+censo2000H$ANO_CUMP <- as.numeric(as.character(censo2000H$ANO_CUMP))
+censo2000H$Edad <- ifelse(censo2000H$ANO_CUMP >= 70 & censo2000H$ANO_CUMP <= 79, "De 70 a 79 años",
+                   ifelse(censo2000H$ANO_CUMP >= 80 & censo2000H$ANO_CUMP <= 89, "De 80 a 89 años",
+                   ifelse(censo2000H$ANO_CUMP >= 90 & censo2000H$ANO_CUMP <= 99, "De 90 a 99 años", "NA")))
+                                                      
+                                                      
+censo2000H$TAM_LOC <- as.numeric(as.character(censo2000H$TAM_LOC))
+                                                      
+censo2000H$Localidad <- ifelse(censo2000H$TAM_LOC == 1, "Rural",
+                        ifelse(censo2000H$TAM_LOC >= 2 & censo2000H$TAM_LOC <= 4, "Urbano",
+                        ifelse(censo2000H$TAM_LOC == 5, "Metrópolis", "NA")))
+                                                      
+wtd.table(censo2000H$Edad, censo2000H$Localidad)
+                                                      
+########################################## Mujeres 2000 #####################################
+                                                      
+censo2000M <- subset(censo00, censo00$ANO_CUMP > 69 & censo00$ANO_CUMP < 100 & censo00$SEXO == 2)
+                                                      
+                                                      
+censo2000M$ANO_CUMP <- as.numeric(as.character(censo2000M$ANO_CUMP))
+censo2000M$Edad <- ifelse(censo2000M$ANO_CUMP >= 70 & censo2000M$ANO_CUMP <= 79, "De 70 a 79 años",
+                   ifelse(censo2000M$ANO_CUMP >= 80 & censo2000M$ANO_CUMP <= 89, "De 80 a 89 años",
+                   ifelse(censo2000M$ANO_CUMP >= 90 & censo2000M$ANO_CUMP <= 99, "De 90 a 99 años", "NA")))
+                                                      
+                                                      
+censo2000M$TAM_LOC <- as.numeric(as.character(censo2000M$TAM_LOC))
+                                                      
+censo2000M$Localidad <- ifelse(censo2000M$TAM_LOC == 1, "Rural",
+                        ifelse(censo2000M$TAM_LOC >= 2 & censo2000M$TAM_LOC <= 4, "Urbano",
+                        ifelse(censo2000M$TAM_LOC == 5, "Metrópolis", "NA")))
+                                                      
+wtd.table(censo2000M$Edad, censo2000M$Localidad)
+                                                      
+################################# 2010 #################################
+                                                      
+censo10 <- read.dbf("C://Users//FLORES//Desktop//2010.dbf")
+
+censo10$EDAD <- as.numeric(as.character(censo10$EDAD))
+censo10$TAMLOC4 <- as.numeric(as.character(censo10$TAMLOC4))
+censo10$SEXO <- as.numeric(as.character(censo10$SEXO))
+                                                      
+censo2010 <- subset(censo10, censo10$EDAD > 79 & censo10$EDAD < 110)
+                                                      
+                                                      
+censo2010$SEXO <- as.numeric(as.character(censo2010$SEXO))
+censo2010$SEXO <- ifelse(censo2010$SEXO == 1, "Hombre", "Mujer")
+                                                      
+censo2010$EDAD <- as.numeric(as.character(censo2010$EDAD))
+censo2010$Edad <- ifelse(censo2010$EDAD >= 80 & censo2010$EDAD <= 89, "De 80 a 89 años",
+                  ifelse(censo2010$EDAD >= 90 & censo2010$EDAD <= 99, "De 90 a 99 años",
+                  ifelse(censo2010$EDAD >= 100 & censo2010$EDAD <= 109, "De 100 a 109 años", "NA")))
+                                                      
+                                                      
+censo2010$TAMLOC4 <- as.numeric(as.character(censo2010$TAMLOC4))
+                                                      
+censo2010$Localidad <- ifelse(censo2010$TAMLOC4 == 1, "Rural",
+                       ifelse(censo2010$TAMLOC4 >= 2 & censo2010$TAMLOC4 <= 4, "Urbano",
+                       ifelse(censo2010$TAMLOC4 == 5, "Metrópolis", "NA")))
+                                                      
+y <- xtabs(~censo2010$Edad + censo2010$SEXO + censo2010$Localidad)
+y
+                                                      
+########################################## Hombres 2010 #####################################
+                                                      
+censo2010H <- subset(censo10, censo10$EDAD > 79 & censo10$EDAD < 110 & censo10$SEXO == 1)
+                                                      
+censo2010H$EDAD <- as.numeric(as.character(censo2010H$EDAD))
+censo2010H$Edad <- ifelse(censo2010H$EDAD >= 80 & censo2010H$EDAD <= 89, "De 80 a 89 años",
+                   ifelse(censo2010H$EDAD >= 90 & censo2010H$EDAD <= 99, "De 90 a 99 años",
+                   ifelse(censo2010H$EDAD >= 100 & censo2010H$EDAD <= 109, "De 100 a 109 años", "NA")))
+                                                      
+                                                      
+censo2010H$TAMLOC4 <- as.numeric(as.character(censo2010H$TAMLOC4))
+                                                      
+censo2010H$Localidad <- ifelse(censo2010H$TAMLOC4 == 1, "Rural",
+                        ifelse(censo2010H$TAMLOC4 >= 2 & censo2010H$TAMLOC4 <= 4, "Urbano",
+                        ifelse(censo2010H$TAMLOC4 == 5, "Metrópolis", "NA")))
+                                                      
+wtd.table(censo2010H$Edad, censo2010H$Localidad)
+                                                      
+########################################## Mujeres 2010 #####################################
+                                                      
+censo2010M <- subset(censo10, censo10$EDAD > 79 & censo10$EDAD < 110 & censo10$SEXO == 2)
+                                                      
+censo2010M$EDAD <- as.numeric(as.character(censo2010M$EDAD))
+censo2010M$Edad <- ifelse(censo2010M$EDAD >= 80 & censo2010M$EDAD <= 89, "De 80 a 89 años",
+                   ifelse(censo2010M$EDAD >= 90 & censo2010M$EDAD <= 99, "De 90 a 99 años",
+                   ifelse(censo2010M$EDAD >= 100 & censo2010M$EDAD <= 109, "De 100 a 109 años", "NA")))
+                                                      
+                                                      
+censo2010M$TAMLOC4 <- as.numeric(as.character(censo2010M$TAMLOC4))
+                                                      
+censo2010M$Localidad <- ifelse(censo2010M$TAMLOC4 == 1, "Rural",
+                        ifelse(censo2010M$TAMLOC4 >= 2 & censo2010M$TAMLOC4 <= 4, "Urbano",
+                        ifelse(censo2010M$TAMLOC4 == 5, "Metrópolis", "NA")))
+                                                      
+wtd.table(censo2010M$Edad, censo2010M$Localidad)
+                                                      
+#####################################
