@@ -1,0 +1,102 @@
+n # Crear una lista o secuencia
+
+seq(0:15)
+polizas <- (0:15)
+n <- 15
+
+prob <- dbinom(polizas, n, prob=.25)
+
+informef <- cbind(polizas, prob)
+informef
+
+# Gráfico probabilidades
+plot(polizas, prob, type="b", xlab = "pólizas",  ylab = "Probabilidades")
+points(polizas, prob)
+# Cálculo de prob <= P[X<=]
+
+F <- cumsum(prob)
+
+# prob acumulada hasta 3
+Fx3 <- pbinom(3, n, prob = .25)
+Fx3
+Fx <- pbinom(polizas, n, prob = .25)
+Fx
+
+#####
+# dbinom - P[X=k]
+# pbinom - P[x<=k]
+# qbinom - Percentiles
+# rbinom - Generar números aleatorios con una distribución binomial
+#####
+
+#Gráficos de la distribución acumulada
+#La probabilidad de los puntos permanece constante
+
+informeF <- cbind(polizas, Fx)
+informeF
+
+plot(polizas, Fx, type="s") #escalonado
+plot(polizas, Fx, type="b") #Contiene la probabilidad acumulada
+points(polizas, prob, col="red") #Agrega las probabilidades individuales
+
+# Cálculo de media y varianza
+
+# E[x] = suma (Xi*prob(Xi))
+
+media1 = sum(polizas*prob)
+media1
+  
+media2 <- n*.25
+media2
+
+# Segundo momento
+segundo <- sum((polizas^2)*prob)
+segundo
+
+#Varianza
+var <- segundo-media1^2
+var
+
+var1 <- n*.25*(1-.25)
+var1
+
+var2 <- sum(((polizas-media1)^2)*prob)
+var2
+
+# Ejemplo: cálculo de percentiles
+#Calcule el valor que deja por debajo al 30 % de los siniestros 
+(q30 <- qbinom(.3, n, prob=.25))
+
+(percentiles<-seq(0,1,by=.05))
+
+(percentiles_1 <- seq(.1, by=.01))
+
+(lpercent <- qbinom(percentiles, n, prob=.25))
+
+(informe_p <- cbind(percentiles*100, lpercent))
+
+plot(informe_p, type="b", xlab="Percentiles", ylab="siniestros")
+
+
+(sesgo <- (1-2*.25)/(n*.25*(1-.25))^.5)
+
+# Obtener las siguientes probabilidades
+
+#tener 9 siniestros P[x=9]
+
+(nueve <- dbinom(9, n, prob=.25))
+
+# Tener 5 o menos P[x<=5]
+
+(cinco <- pbinom(5, n, prob = .25))
+
+# Tener más de 7 siniestros  P[x>7]=1-P[x>=7]
+
+(siete <- 1 - pbinom(7, n, prob=.25))
+
+# Tener 8 más 
+(ocho <- 1- pbinom(8, n, prob=.25))
+
+# Tener al menos 4 y a lo mucho 11
+(cuatroyonce <- pbinom(11, n, prob=.25)-pbinom(3, n, prob=0.25))
+
