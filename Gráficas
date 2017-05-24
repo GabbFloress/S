@@ -1,0 +1,37 @@
+
+
+
+BCts <- ts(read.csv("F://BajaCaliforniaSur.csv",header = T), frequency = 4, start = (2009))
+
+DFts <- ts(read.csv("F://Distrito Federal.csv",header = T), frequency = 4, start = (2009))
+
+QRts <- ts(read.csv("F://Quintana Roo.csv",header = T), frequency = 4, start = (2009))
+
+ZCts <- ts(read.csv("F://Zacatecas.csv",header = T), frequency = 4, start = (2009))
+
+plot(BCts, main = "Tasa de Siniestralidad Baja California Sur, 2009-2015",
+     xlab = "Año", ylab = "Tasa", col = "darkblue"  , lwd = 3)
+
+plot(DFts, main = "Tasa de Siniestralidad Distrito Federal, 2009-2015",
+     xlab = "Año", ylab = "Tasa", col = "darkgreen"  , lwd = 3)
+
+plot(QRts, main = "Tasa de Siniestralidad Quintana Roo, 2009-2015",
+     xlab = "Año", ylab = "Tasa", col = "darkcyan"  , lwd = 3)
+
+plot(ZCts, main = "Tasa de Siniestralidad Zacatecas, 2009-2015",
+     xlab = "Año", ylab = "Tasa", col = "darkorange"  , lwd = 3)
+
+
+plot(cbind(BCts, DFts, QRts, ZCts))
+
+plot(BCts, main = "Tasa de Siniestralidad, 2009-2015",
+     xlab = "Año", ylab = "Tasa", col = "darkcyan"  , lwd = 3)
+
+lines(DFts, col = "darkred", lwd = 3 )
+
+lines(QRts, col = "orange", lwd = 3 )
+
+
+
+legend ("right",lty = 1, col=c("darkcyan", "darkred","orange"),
+         c("Baja California sur","Distrito Federal","Quintana Roo"), lwd = 3)
