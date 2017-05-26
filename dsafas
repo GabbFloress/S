@@ -1,0 +1,43 @@
+
+BCts <- ts(read.csv("F://BajaCaliforniaSur.csv",header = T), frequency = 4, start = (2009))
+
+DFts <- ts(read.csv("F://Distrito Federal.csv",header = T), frequency = 4, start = (2009))
+
+QRts <- ts(read.csv("F://Quintana Roo.csv",header = T), frequency = 4, start = (2009))
+
+
+plot(BCts, main = "Tasa de Siniestralidad Baja California Sur, 2009-2015",
+     xlab = "Año", ylab = "Tasa", col = "darkcyan", lwd = 3)
+
+plot(DFts, main = "Tasa de Siniestralidad Distrito Federal, 2009-2015",
+     xlab = "Año", ylab = "Tasa", col = "red"  , lwd = 3)
+
+plot(QRts, main = "Tasa de Siniestralidad Quintana Roo, 2009-2015",
+     xlab = "Año", ylab = "Tasa", col = "darkgreen"  , lwd = 3)
+
+
+plot(BCts, main = "Tasa de Siniestralidad, 2009-2015",
+     xlab = "Año", ylab = "Tasa", col = "darkcyan"  , lwd = 3)
+
+lines(DFts, col = "red", lwd = 3 )
+
+lines(QRts, col = "darkgrey", lwd = 3 )
+
+
+legend ("bottomright",lty = 1, col=c("darkcyan", "red","darkgrey"),
+         c("Baja California Sur","Distrito Federal","Quintana Roo"), lwd = 3)
+
+plot(decompose(BCts))
+plot(decompose(DFts))
+plot(decompose(QRts))
+
+summary(BCts)
+summary(DFts)
+summary(QRts)
+
+#deBC <- decompose(BCts)
+#deBC
+#names(deBC) #Elementos de una serie de tiempo!!
+#deBC$trend #Datos asociados a la tendencia
+#deBC$seasonal
+
