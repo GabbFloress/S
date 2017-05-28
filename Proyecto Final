@@ -1,0 +1,153 @@
+
+BCts <- ts(read.csv("F://BajaCaliforniaSur.csv",header = T), frequency = 4, start = (2009))
+
+DFts <- ts(read.csv("F://Distrito Federal.csv",header = T), frequency = 4, start = (2009))
+
+QRts <- ts(read.csv("F://Quintana Roo.csv",header = T), frequency = 4, start = (2009))
+
+
+plot(BCts, main = "Tasa de Siniestralidad Baja California Sur, 2009-2015",
+     xlab = "Año", ylab = "Tasa", col = "darkcyan", lwd = 3)
+
+plot(DFts, main = "Tasa de Siniestralidad Distrito Federal, 2009-2015",
+     xlab = "Año", ylab = "Tasa", col = "red"  , lwd = 3)
+
+plot(QRts, main = "Tasa de Siniestralidad Quintana Roo, 2009-2015",
+     xlab = "Año", ylab = "Tasa", col = "darkgreen"  , lwd = 3)
+
+
+plot(BCts, main = "Tasa de Siniestralidad, 2009-2015",
+     xlab = "Año", ylab = "Tasa", col = "darkcyan"  , lwd = 3)
+
+lines(DFts, col = "red", lwd = 3 )
+
+lines(QRts, col = "darkgrey", lwd = 3 )
+
+#install.packages("Hmisc")
+#require(Hmisc)
+minor.tick(nx=4, ny=5, tick.ratio=.5)
+
+
+legend ("top",lty = 1, col=c("darkcyan", "red","darkgrey"),
+        c("Baja California Sur","Distrito Federal","Quintana Roo"), lwd = 3)
+
+plot(decompose(BCts))
+plot(decompose(DFts))
+plot(decompose(QRts))
+
+######## BAJA CALIFORNIA SUR
+
+adf.test(BCts) #p-value = 0.9804#
+BCdiff <- diff(BCts)
+adf.test(BCdiff) #p-value = 0.01#
+#d=1
+acf(BCdiff)
+#q=3
+pacf(BCdiff)
+#p=2
+
+### ARIMA(2,1,3)
+
+modBC <- Arima(BCts,order = c(2,1,3))
+summary(modBC) #AICc=27.4
+
+### auto.arima 
+
+automodBC <- auto.arima(BCts)
+summary(automodBC) #AICc=15.94
+
+
+### ARIMA (2,1,2)
+modBC1 <- Arima(BCts,order = c(2,1,2))
+summary(modBC1) #AICc=21.81
+
+### Pronóstico con el modelo auto.arima 
+
+residuales <- residuals(automodBC)
+Box.test(residuales,lag = 12,type = "Ljung-Box") #p-value = 0.9977
+
+modpron <- forecast(automodBC, h=4) #Pronóstico: 4 periodos
+plot(modpron,include = 25, main = "Pronóstico Baja California Sur",
+     xlab = "Año", ylab = "Tasa", col = "darkcyan", lwd = 3 )
+modpron
+
+#residuales1 <- residuals(modBC1)
+#Box.test(residuales1,lag = 12,type = "Ljung-Box") #p-value = 0.5056
+
+#modpron1 <- forecast(modBC1, h=4) #Pronóstico: 4 periodos
+#plot(modpron1,include = 25, main = "Pronóstico Baja California Sur",
+#     xlab = "Año", ylab = "Tasa", col = "darkcyan", lwd = 3 )
+
+######## DISTRITO FEDERAL
+
+adf.test(DFts) #p-value = 0.7418#
+DFdiff <- diff(DFts)
+adf.test(DFdiff) #p-value = 0.01#
+#d=1
+acf(DFdiff)
+#q=3-4
+pacf(DFdiff)
+#p=1-2
+
+### ARIMA(1,1,3)
+
+modDF <- Arima(DFts, order = c(1,1,3))
+summary(modDF) #AICc=-57.09
+
+### auto.arima 
+
+automodDF <- auto.arima(DFts)
+summary(automodDF) #AICc=-69.17
+
+
+### ARIMA (2,1,4)
+modDF1 <- Arima(DFts,order = c(2,1,4))
+summary(modDF1) #AICc=-53.46
+
+### Pronóstico con el modelo auto.arima 
+
+residualesDF <- residuals(automodDF)
+Box.test(residualesDF,lag = 12,type = "Ljung-Box") #p-value = 0.7303
+
+modpronDF <- forecast(automodDF, h=4) #Pronóstico: 4 periodos
+plot(modpronDF,include = 25, main = "Pronóstico Distrito Federal",
+     xlab = "Año", ylab = "Tasa", col = "red", lwd = 3 )
+modpronDF
+
+######## QUINTANA ROO
+
+adf.test(QRts) #p-value = 0.99#
+QRdiff <- diff(QRts)
+adf.test(QRdiff) #p-value = 0.01#
+#d=1
+acf(QRdiff)
+#q=2-3
+pacf(QRdiff)
+#p=1-2
+
+### ARIMA(1,1,2)
+
+modQR <- Arima(QRts, order = c(1,1,2))
+summary(modQR) #AICc=-10.62
+
+### auto.arima 
+
+automodQR <- auto.arima(QRts)
+summary(automodQR) #AICc=-18.52 
+
+
+### ARIMA (2,1,3)
+modQR1 <- Arima(QRts,order = c(2,1,3))
+summary(modQR1) #AICc=-6.97
+
+### Pronóstico con el modelo auto.arima 
+
+residualesQR <- residuals(automodQR)
+Box.test(residualesQR,lag = 12,type = "Ljung-Box") #p-value = 0.97
+
+modpronQR <- forecast(automodQR, h=4) #Pronóstico: 4 periodos
+plot(modpronQR,include = 25, main = "Pronóstico Quintana Roo",
+     xlab = "Año", ylab = "Tasa", col = "darkgreen", lwd = 3 )
+modpronQR
+
+###############################################
