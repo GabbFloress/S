@@ -1,0 +1,50 @@
+install.packages("ggplot2")
+
+require(ggplot2)
+
+set.seed(1410) # Make the sample reproducible
+
+dsmall <- diamonds[sample(nrow(diamonds), 100), ]
+
+#qplot(x, y, data= ) 
+
+qplot(carat, price, data = diamonds)
+
+# La gráfica muestra una correlación extraña porque qplot acepta 
+# funciones como argumentos, para evitar esto se agrega log()
+
+# qplot (log(x) , log(y), data = )
+
+qplot(log(carat), log(price), data = diamonds)
+
+
+#Se muestra una correlación que se aproxima a una lineal
+
+# También se puede poner como argumento la combinación de variables
+# en este caso el argumento "y" es ahora el volumen que se obtiene con: x*y*z
+
+qplot(carat, x * y * z, data = diamonds)
+
+# qplot(x, y, data = basededatos, colour = variabledelabase) 
+
+# colour asigna automáticamente un color a cada dato de la variable asignada 
+
+qplot(carat, price, data = dsmall, colour = color)
+
+# shape asigna automáticamente una forma a cada dato de la variable asignada 
+
+qplot(carat, price, data = dsmall, shape = cut)
+
+# con I() se puede modificar el color o forma 
+# colour = I("red") ó size = I(2)
+
+# cuando los puntos se sobreponen se puede utilizar alpha =
+# para modificar la transparencia de los puntos
+# alpha = valores de 0 a 1, donde 0 es transparente y 1 opaco
+
+qplot(carat, price, data = diamonds, alpha = I(1/10))
+
+qplot(carat, price, data = diamonds, alpha = I(1/100))
+
+qplot(carat, price, data = diamonds, alpha = I(1/200))
+
