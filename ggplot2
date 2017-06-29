@@ -48,3 +48,58 @@ qplot(carat, price, data = diamonds, alpha = I(1/100))
 
 qplot(carat, price, data = diamonds, alpha = I(1/200))
 
+qplot(carat, price, data = dsmall, colour = color, alpha = .6)
+
+# qplot(carat, price, data = dsmall) original
+
+qplot(carat, price, data = dsmall, geom = c("point", "smooth"))
+
+# geom agrega una linea de tendencia con un intervalo de confianza
+# el primer argumento es el tipo de gráfica 
+
+qplot(carat, price, data = dsmall, geom = c("point", "smooth"), se = FALSE)
+
+# se = FALSE elimina el intervalo de confianza en la gráfica
+
+# qplot(carat, price, data = diamonds) original
+
+qplot(carat, price, data = diamonds, geom = c("point", "smooth"))
+
+# el argumento span hace una regresión, con valores cercanos a 1 la linea 
+# de tendencia es más suave
+
+qplot(carat, price, data = dsmall, geom = c("point", "smooth"), span = 0.2) 
+
+qplot(carat, price, data = dsmall, geom = c("point", "smooth"), span = 1)
+
+install.packages("mgcv")
+
+require(mgcv)
+
+# Para el modelo aditivo method = "gam", formula = y ∼ s(x)
+
+qplot(carat, price, data = dsmall, geom = c("point", "smooth"),
+      method = "gam", formula = y ~ s(x))
+
+# formula = y ~ s(x, bs = "cs") se usa para bases con más de mil datos
+
+qplot(carat, price, data = dsmall, geom = c("point", "smooth"),
+      method = "gam", formula = y ~ s(x, bs = "cs"))
+
+
+# Para un modelo lineal method = "lm"
+# formula = y ~ poly(x, 2) ajustará a un polinomio de segundo grado
+# o bajar la paquetería splines para usar formula = y ~ ns(x, 2) 
+# el segundo parámetro indica los grados de libertad
+
+install.packages("splines")
+
+require(splines)
+
+qplot(carat, price, data = dsmall, geom = c("point", "smooth"),
+      method = "lm")
+
+qplot(carat, price, data = dsmall, geom = c("point", "smooth"),
+      method = "lm", formula = y ~ ns(x,5)) #5 grados de libertad
+
+
