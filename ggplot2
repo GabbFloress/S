@@ -131,3 +131,70 @@ qplot(color, price / carat, data = diamonds, geom = "jitter", alpha = I(1 / 5))
 qplot(color, price / carat, data = diamonds, geom = "jitter", alpha = I(1 / 50))
 qplot(color, price / carat, data = diamonds, geom = "jitter", alpha = I(1 / 200))
 
+#Histograma y densidad para una variable
+
+qplot(carat, data = diamonds, geom = "histogram")
+
+qplot(carat, data = diamonds, geom = "density")
+
+# binwidth valores cercanos a 1 hacen menos intervalos, valores cercanos a 0 más intervalos
+# xlim c(0,3) indica los valores del eje x
+
+qplot(carat, data = diamonds, geom = "histogram", binwidth = 1, xlim = c(0,3))
+qplot(carat, data = diamonds, geom = "histogram", binwidth = 0.1, xlim = c(0,3))
+qplot(carat, data = diamonds, geom = "histogram", binwidth = 0.01, xlim = c(0,3))
+
+# fill = subgrupo que se desea observar
+
+qplot(carat, data = diamonds, geom = "histogram", fill = color)
+
+# colour = subgrupo, sirve para comparar varias curvas
+
+qplot(carat, data = diamonds, geom = "density", colour = color)
+
+# Gráfica de barras
+
+qplot(color, data = diamonds, geom = "bar") #realiza la tabulación de los datos
+
+qplot(color, data = diamonds, geom = "bar", weight = carat) + #weight = datos ponderados por variable
+  scale_y_continuous("carat")  # cambia el nombre del eje y
+
+# line grafica los puntos de la serie de tiempo de acuerdo al eje x (tiempo)
+# path grafica los puntos de la serie de tiempo de acuerdo al orden en la serie
+
+qplot(date, unemploy / pop, data = economics, geom = "line") #tasa de desempleo 
+
+qplot(date, uempmed, data = economics, geom = "line") #semanas de desempleo
+
+# comparar porcentaje desempleo con tiempo desempleado
+
+year <- function(x) as.POSIXlt(x)$year + 1900
+
+qplot(unemploy / pop, uempmed, data = economics, geom = c("point", "path"))
+
+qplot(unemploy / pop, uempmed, data = economics, geom = "path", colour = year(date)) 
+
+# con direrentes colores por año
+
+#Facets
+# row var ∼ col var fórmula general
+# row var ∼ . creará una columna con varias filas
+
+qplot(carat, data = diamonds, facets = color ~ .,
+      geom = "histogram", binwidth = 0.1, xlim = c(0, 3)) 
+
+# hace una gráfica por cada subgrupo de la variable utilizada en facets = variable ~ .
+
+qplot(carat, ..density.., data = diamonds, facets = color ~ .,
+      geom = "histogram", binwidth = 0.1, xlim = c(0, 3))
+
+# ..density.. coloca automáticamente el nombre del eje y 
+
+
+qplot(carat, price, data = dsmall, xlab = "Price ($)", ylab = "Weight (carats)",
+      main = "Price-weight relationship")
+
+qplot(carat, price/carat, data = dsmall, ylab = expression(frac(price,carat)),
+  xlab = "Weight (carats)", main="Small diamonds", xlim = c(.2,1))
+
+qplot(carat, price, data = dsmall, log = "xy") 
