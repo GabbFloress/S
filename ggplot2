@@ -102,4 +102,32 @@ qplot(carat, price, data = dsmall, geom = c("point", "smooth"),
 qplot(carat, price, data = dsmall, geom = c("point", "smooth"),
       method = "lm", formula = y ~ ns(x,5)) #5 grados de libertad
 
+install.packages("MASS")
+
+require(MASS)
+
+qplot(carat, price, data = dsmall, geom = c("point", "smooth"),
+      method = "rlm") 
+
+# no toma en cuenta los puntos que se alejan mucho 
+# del comportamiento de los datos.
+
+# cuando se tiene una variable categórica y se desea saber cómo se 
+# comportan las otras variables según el valor de ésta
+
+qplot(carat, price, data = dsmall, geom = c("point", "smooth"),
+      method = "gam", formula = y ~ x)
+
+qplot(carat, price, data = dsmall, geom = c("point", "smooth"),
+      method = "lm", formula = y ~ ns(x,5)) 
+
+
+qplot(color, price/carat, data = diamonds, geom = "jitter") #muestra cada punto 
+
+qplot(color, price/carat, data = diamonds, geom = c("point", "boxplot")) 
+
+
+qplot(color, price / carat, data = diamonds, geom = "jitter", alpha = I(1 / 5))
+qplot(color, price / carat, data = diamonds, geom = "jitter", alpha = I(1 / 50))
+qplot(color, price / carat, data = diamonds, geom = "jitter", alpha = I(1 / 200))
 
